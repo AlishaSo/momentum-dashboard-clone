@@ -13,4 +13,20 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  color: white;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 2px #474747;
+}
+
+.unsplash-attribution {
+  color: white;
+  text-decoration: none;
+}
+
+.unsplash-attribution:hover,
+.unsplash-attribution:focus {
+  cursor: pointer;
+  opacity: .75;
+  text-decoration: underline;
 }

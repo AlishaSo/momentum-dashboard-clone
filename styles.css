@@ -16,8 +16,29 @@ body {
   color: white;
   font-family: 'Oxygen', sans-serif;
   font-size: 1.1rem;
+  padding: 0 10px;
   text-shadow: 1px 1px 2px #474747;
 }
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.weather {
+  margin-left: auto;
+}
+
+.middle {
+  text-align: center;
+}
+
+.time {
+  text-align: center;
+}
+
 
 .unsplash-attribution {
   color: white;

@@ -33,9 +33,13 @@ navigator.geolocation.getCurrentPosition(position => {
     })
     .then(data => {
       console.log(data)
+      //Save the link to the icon image to a variable
+      const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
       //Add the icon for the current weather to the weather div
       weatherDiv.innerHTML = `
-        <img src='http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png'/>
+        <img src='${iconUrl}'/>
+        <p class='weather-temp'>${Math.round(data.main.temp)}°</p>
+        <p class='weather-city'>${data.name}</p>
       `;
     })
     .catch(error => console.error(error));

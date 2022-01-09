@@ -17,7 +17,7 @@ body {
   font-family: 'Oxygen', sans-serif;
   font-size: 1.1rem;
   padding: 0 10px;
-  text-shadow: 1px 1px 2px #474747;
+  text-shadow: 0px 0px 3px #474747;
 }
 
 main {
@@ -48,7 +48,7 @@ main {
 
 .weather-temp {
   margin: 0;
-  font-size: 1.7rem;
+  font-size: 2rem;
   margin-left: -10px;
 }
 
@@ -57,17 +57,26 @@ main {
 }
 
 .time {
-  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 0;
 }
 
+#quote {
+  font-size: 1.3rem;
+  margin-top: 5px;
+}
 
-.unsplash-attribution {
+#author {
+  font-size: 1rem;
+}
+
+.photographer a {
   color: white;
   text-decoration: none;
 }
 
-.unsplash-attribution:hover,
-.unsplash-attribution:focus {
+.photographer a:hover,
+.photographer a:focus {
   cursor: pointer;
   opacity: .75;
   text-decoration: underline;

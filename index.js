@@ -5,7 +5,7 @@ const timeEl = document.querySelector('.time');
 const quoteP = document.querySelector('#quote');
 
 //Access Unsplash API to get a random photo
-fetch('https://api.unsplash.com/photos/random?orientation=landscape&query=experimental&client_id=FngrTy9r1X_CbbUaxsie0ll_C4W_xqux07X6JxzHLQc&')
+fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')
   .then(response => response.json())
   .then(data => {
     console.log(data)
@@ -26,7 +26,7 @@ fetch('https://api.unsplash.com/photos/random?orientation=landscape&query=experi
 //Access Geolocation API to get user's coordinates
 navigator.geolocation.getCurrentPosition(position => {
   //Access OpenWeather API to get the weather information
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial&appid=f00fd48f468ce36d5eb07c17d15ff70f`)
+  fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
     .then(response => {
       if (!response.ok) { //Check if fetch response is successful
         throw Error("Weather data not available")
@@ -39,7 +39,7 @@ navigator.geolocation.getCurrentPosition(position => {
       const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
       //Add the icon for the current weather to the weather div
       weatherDiv.innerHTML = `
-        <img src='${iconUrl}'/>
+        <img id='weather-icon' src='${iconUrl}'/>
         <p class='weather-temp'>${Math.round(data.main.temp)}°</p>
         <p class='weather-city'>${data.name}</p>
       `;

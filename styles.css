@@ -35,7 +35,11 @@ main {
   margin-left: auto;
 }
 
-.weather > img {
+.weather #loading {
+  width: 150px;
+}
+
+.weather #weather-icon {
   width: 70px;
 }
 

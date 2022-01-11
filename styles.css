@@ -8,7 +8,7 @@ body {
 }
 
 body {
-  background: no-repeat center center fixed; 
+  background: url(https://images.unsplash.com/photo-1581488066648-56a585ab6767?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDI0NzB8MHwxfGFsbHx8fHx8fHx8fDE2NDE2NzUzMzU&ixlib=rb-1.2.1&q=85) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -18,6 +18,7 @@ body {
   font-size: 1.1rem;
   padding: 0 10px;
   text-shadow: 0px 0px 3px #474747;
+  
 }
 
 main {
@@ -61,17 +62,56 @@ main {
 }
 
 .time {
-  font-size: 4rem;
+  font-size: 7rem;
   margin-bottom: 0;
 }
 
 #quote {
-  font-size: 1.3rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.6rem;
   margin-top: 5px;
+  font-style: italic;
 }
 
 #author {
+  font-family: 'Nunito', sans-serif;
   font-size: 1rem;
+}
+
+.focus-task-div {
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  text-align: unset;
+}
+
+.focus-task-div label {
+  font-size: 2rem;
+}
+
+.focus-task-div input[type=text] {
+  align-self: center;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px solid white;
+  color: white;
+  font-size: 1.9rem;
+  font-weight: 500;
+  padding-top: 10px;
+  width: 400px;
+}
+
+.focus-task-div input:focus {
+  outline: none;
+}
+
+.focus-task-div input[type=checkbox] {
+  margin-right: 1em;
+}
+
+.focus-task-div label {
+  /* margin: 0; */
 }
 
 .photographer a {

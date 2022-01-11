@@ -3,6 +3,8 @@ const photographerP = document.querySelector('.photographer');
 const weatherDiv = document.querySelector('.weather');
 const timeEl = document.querySelector('.time');
 const quoteP = document.querySelector('#quote');
+const placeholderQuote = 'If you get shown a problem, but have no idea how to control it, then you just decide to get used to the problem.';
+const placeholderQuoteSource = 'Sorry to Bother You (2018)';
 const focusTaskDiv = document.querySelector('.focus-task-div');
 let taskIndex = 1;
 const focusTaskInput = document.querySelector('#focus-task');
@@ -16,8 +18,7 @@ resetInput();
 //   .then(data => {
 //     console.log(data)
 //     if(!data.errors) {
-//       body.style.backgroundImage = `url(${data.urls.full})`; //set the background to the image
-//       photographerP.innerHTML = `By: <a href='https://unsplash.com/@${data.user.username}' target='_blank'>${data.user.name}</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral' target='_blank'>Unsplash</a>`;
+//     setBgImg(data.urls.full, data.user.username, data.user.name);
 //     }
 //     else {
 //       throw Error('There\'s been an error with the fetch request to the Unsplash API');
@@ -25,8 +26,7 @@ resetInput();
 //   })
 //   .catch(() => {
 //     alert('A new image could not be retrieved at this time');
-//     body.style.backgroundImage = 'url(https://images.unsplash.com/photo-1581488066648-56a585ab6767?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDI0NzB8MHwxfGFsbHx8fHx8fHx8fDE2NDE2NzUzMzU&ixlib=rb-1.2.1&q=85)';
-//     photographerP.innerHTML = `By: <a href='https://unsplash.com/@jrkorpa' target='_blank'>Jr Korpa</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral'>Unsplash</a>`;
+//     setBgImg(placeholderImgUrl, placeholderImgPhotographerProfile, placeholderImgPhotographer);
 //   });
 
 //Access Geolocation API to get user's coordinates
@@ -66,10 +66,7 @@ fetch('https://api.quotable.io/random?maxLength=100')
   .then(data => {
     if(data.statusCode !== 404) { //Make sure that the fetch response was successful
       //Set the paragraph with the id of quote to the quote received from the API, along with the author's name
-      quoteP.innerHTML = `
-        "${data.content}" 
-        <br>
-        - ${data.author}`;
+      setQuote(data.content, data.author);
     }
     else {
       //If the fetch response returned the error code 404, throw an error
@@ -79,9 +76,7 @@ fetch('https://api.quotable.io/random?maxLength=100')
   .catch(() => {
     alert('A new quote could not be retrieved at this time');  //If there was an error retreiving the quote, let the user know
     //Add this quote to the <p> instead
-    quoteP.innerHTML = `"If you get shown a problem, but have no idea how to control it, then you just decide to get used to the problem."
-      <br>
-      - Sorry to Bother You (2018)`;
+    setQuote(placeholderQuote, placeholderQuoteSource);
   });
 
   focusTaskInput.addEventListener('keyup', e => {
@@ -98,4 +93,15 @@ fetch('https://api.quotable.io/random?maxLength=100')
 
   function resetInput() {
     focusTaskInput.value = '';
+  }
+
+  function setBgImg(img, username, name) {
+    //body.style.backgroundImage = `url(${img})`; //set the background to the image
+    //photographerP.innerHTML = `By: <a href='https://unsplash.com/@${username}' target='_blank'>${name}</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral' target='_blank'>Unsplash</a>`;
+  }
+
+  function setQuote(quote, source) {
+    quoteP.innerHTML = `"${quote}"
+    <br>
+    - ${source}`;
   }

@@ -1,3 +1,8 @@
+:root {
+  --text-color: white;
+  --input-decoration-color: white;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -13,7 +18,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: white;
+  color: var(--text-color);
   font-family: 'Oxygen', sans-serif;
   font-size: 1.1rem;
   padding: 0 10px;
@@ -94,8 +99,8 @@ main {
   align-self: center;
   background-color: transparent;
   border: 0;
-  border-bottom: 2px solid white;
-  color: white;
+  border-bottom: 2px solid var(--input-decoration-color);
+  color: var(--text-color);
   font-size: 1.9rem;
   font-weight: 500;
   padding-top: 10px;
@@ -115,7 +120,7 @@ main {
 }
 
 .photographer a {
-  color: white;
+  color: var(--text-color);
   text-decoration: none;
 }
 

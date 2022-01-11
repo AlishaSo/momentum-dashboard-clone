@@ -8,6 +8,7 @@ let taskIndex = 1;
 const focusTaskInput = document.querySelector('#focus-task');
 
 getCurrentTime();
+resetInput();
 
 //Access Unsplash API to get a random photo
 // fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')
@@ -93,4 +94,8 @@ fetch('https://api.quotable.io/random?maxLength=100')
       `;
     }
     index++;
-  })
+  });
+
+  function resetInput() {
+    focusTaskInput.value = '';
+  }

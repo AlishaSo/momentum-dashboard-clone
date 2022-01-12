@@ -6,7 +6,7 @@ const quoteP = document.querySelector('#quote');
 const placeholderQuote = 'If you get shown a problem, but have no idea how to control it, then you just decide to get used to the problem.';
 const placeholderQuoteSource = 'Sorry to Bother You (2018)';
 const focusTaskDiv = document.querySelector('.focus-task-div');
-let taskIndex = 1;
+const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
 
 getCurrentTime();
@@ -81,10 +81,11 @@ fetch('https://api.quotable.io/random?maxLength=100')
 
   focusTaskInput.addEventListener('keyup', e => {
     if(e.key === 'Enter' || e.keyCode === 13) {
+      localStorage.setItem('focus-task', focusTaskInput.value);
       focusTaskDiv.innerHTML = `
         <div class='focus-check'>
           <h2 id='today-focus'>TODAY</h2>
-          <input type='checkbox' id='task-${taskIndex}' name='task-complete'/> <label for='task-${taskIndex}'>${focusTaskInput.value}</label>
+          <input type='checkbox' id='focus-task' name='task-complete'/> <label for='focus-task'>${focusTaskInput.value}</label>
         </div>
       `;
     }
@@ -105,3 +106,20 @@ fetch('https://api.quotable.io/random?maxLength=100')
     <br>
     - ${source}`;
   }
+
+  function displayFocusTask() {
+    if(localStorage.getItem(focusTaskKey)) {
+      focusTaskDiv.innerHTML = `
+        <div class='focus-check'>
+          <h2 id='today-focus'>TODAY</h2>
+          <input type='checkbox' id='focus-task' name='task-complete'/> <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
+        </div>
+      `;
+    }
+  }
+
+  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    displayFocusTask();
+  }
+
+  chrome.tabs.onCreated.addListener(displayFocusTask())

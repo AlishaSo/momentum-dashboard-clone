@@ -8,6 +8,7 @@ const placeholderQuoteSource = 'Sorry to Bother You (2018)';
 const focusTaskDiv = document.querySelector('.focus-task-div');
 const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
+const taskOptionsDiv = document.querySelector('.task-options');
 
 getCurrentTime();
 resetInput();
@@ -112,10 +113,20 @@ fetch('https://api.quotable.io/random?maxLength=100')
       focusTaskDiv.innerHTML = `
         <div class='focus-check'>
           <h2 id='today-focus'>TODAY</h2>
-          <input type='checkbox' id='focus-task' name='task-complete'/> <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
+          <div class='check-and-label'>
+            <input type='checkbox' name='task-complete' id='focus-task'/>
+            <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
+          </div>
+          <button class='options-btn' onClick='toggleOptions()'></button>
         </div>
       `;
     }
+  }
+
+  function toggleOptions() {
+    console.log('imside toggleOptions')
+    taskOptionsDiv.classList.toggle('show');
+    console.log(taskOptionsDiv.classList)
   }
 
   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {

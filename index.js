@@ -10,8 +10,26 @@ const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
 const taskOptionsDiv = document.querySelector('.task-options');
 
+const deleteTaskBtn = document.querySelector('#delete-task');
+
 getCurrentTime();
 resetInput();
+
+focusTaskInput.addEventListener('keyup', e => getFocusTask(e, focusTaskInput.value));
+
+deleteTaskBtn.addEventListener('click', () => {
+  localStorage.removeItem(focusTaskKey);
+  taskOptionsDiv.classList.remove('show');
+  focusTaskDiv.innerHTML = `
+    <label for='focus-task'>Today's Most Important Task is:</label>
+  `;
+  const inputField = document.createElement('input');
+  inputField.setAttribute('id', 'focus-task');
+  inputField.type = 'text';
+  inputField.name = 'focus-task';
+  inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
+  focusTaskDiv.appendChild(inputField);
+});
 
 //Access Unsplash API to get a random photo
 // fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')
@@ -80,19 +98,6 @@ fetch('https://api.quotable.io/random?maxLength=100')
     setQuote(placeholderQuote, placeholderQuoteSource);
   });
 
-  focusTaskInput.addEventListener('keyup', e => {
-    if(e.key === 'Enter' || e.keyCode === 13) {
-      localStorage.setItem('focus-task', focusTaskInput.value);
-      focusTaskDiv.innerHTML = `
-        <div class='focus-check'>
-          <h2 id='today-focus'>TODAY</h2>
-          <input type='checkbox' id='focus-task' name='task-complete'/> <label for='focus-task'>${focusTaskInput.value}</label>
-        </div>
-      `;
-    }
-    index++;
-  });
-
   function resetInput() {
     focusTaskInput.value = '';
   }
@@ -120,6 +125,13 @@ fetch('https://api.quotable.io/random?maxLength=100')
           <button class='options-btn' onClick='toggleOptions()'></button>
         </div>
       `;
+    }
+  }
+
+  function getFocusTask(event, value) {
+    if(event.key === 'Enter' || event.keyCode === 13) {
+      localStorage.setItem('focus-task', value);
+      displayFocusTask();
     }
   }
 

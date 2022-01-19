@@ -17,19 +17,7 @@ resetInput();
 
 focusTaskInput.addEventListener('keyup', e => getFocusTask(e, focusTaskInput.value));
 
-deleteTaskBtn.addEventListener('click', () => {
-  localStorage.removeItem(focusTaskKey);
-  taskOptionsDiv.classList.remove('show');
-  focusTaskDiv.innerHTML = `
-    <label for='focus-task'>Today's Most Important Task is:</label>
-  `;
-  const inputField = document.createElement('input');
-  inputField.setAttribute('id', 'focus-task');
-  inputField.type = 'text';
-  inputField.name = 'focus-task';
-  inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
-  focusTaskDiv.appendChild(inputField);
-});
+deleteTaskBtn.addEventListener('click', deleteTask);
 
 //Access Unsplash API to get a random photo
 // fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')
@@ -139,6 +127,20 @@ fetch('https://api.quotable.io/random?maxLength=100')
     console.log('imside toggleOptions')
     taskOptionsDiv.classList.toggle('show');
     console.log(taskOptionsDiv.classList)
+  }
+
+  function deleteTask() {
+    localStorage.removeItem(focusTaskKey);
+    taskOptionsDiv.classList.remove('show');
+    focusTaskDiv.innerHTML = `
+      <label for='focus-task'>Today's Most Important Task is:</label>
+    `;
+    const inputField = document.createElement('input');
+    inputField.setAttribute('id', 'focus-task');
+    inputField.type = 'text';
+    inputField.name = 'focus-task';
+    inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
+    focusTaskDiv.appendChild(inputField);
   }
 
   if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {

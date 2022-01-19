@@ -9,13 +9,15 @@ const focusTaskDiv = document.querySelector('.focus-task-div');
 const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
 const taskOptionsDiv = document.querySelector('.task-options');
-
+const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 
 getCurrentTime();
 resetInput();
 
 focusTaskInput.addEventListener('keyup', e => getFocusTask(e, focusTaskInput.value));
+
+editTaskTextBtn.addEventListener('click', editTaskText);
 
 deleteTaskBtn.addEventListener('click', deleteTask);
 
@@ -86,65 +88,72 @@ fetch('https://api.quotable.io/random?maxLength=100')
     setQuote(placeholderQuote, placeholderQuoteSource);
   });
 
-  function resetInput() {
-    focusTaskInput.value = '';
-  }
+function resetInput() {
+  focusTaskInput.value = '';
+}
 
-  function setBgImg(img, username, name) {
-    //body.style.backgroundImage = `url(${img})`; //set the background to the image
-    //photographerP.innerHTML = `By: <a href='https://unsplash.com/@${username}' target='_blank'>${name}</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral' target='_blank'>Unsplash</a>`;
-  }
+function setBgImg(img, username, name) {
+  //body.style.backgroundImage = `url(${img})`; //set the background to the image
+  //photographerP.innerHTML = `By: <a href='https://unsplash.com/@${username}' target='_blank'>${name}</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral' target='_blank'>Unsplash</a>`;
+}
 
-  function setQuote(quote, source) {
-    quoteP.innerHTML = `"${quote}"
-    <br>
-    - ${source}`;
-  }
+function setQuote(quote, source) {
+  quoteP.innerHTML = `"${quote}"
+  <br>
+  - ${source}`;
+}
 
-  function displayFocusTask() {
-    if(localStorage.getItem(focusTaskKey)) {
-      focusTaskDiv.innerHTML = `
-        <div class='focus-check'>
-          <h2 id='today-focus'>TODAY</h2>
-          <div class='check-and-label'>
-            <input type='checkbox' name='task-complete' id='focus-task'/>
-            <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
-          </div>
-          <button class='options-btn' onClick='toggleOptions()'></button>
-        </div>
-      `;
-    }
-  }
-
-  function getFocusTask(event, value) {
-    if(event.key === 'Enter' || event.keyCode === 13) {
-      localStorage.setItem('focus-task', value);
-      displayFocusTask();
-    }
-  }
-
-  function toggleOptions() {
-    console.log('imside toggleOptions')
-    taskOptionsDiv.classList.toggle('show');
-    console.log(taskOptionsDiv.classList)
-  }
-
-  function deleteTask() {
-    localStorage.removeItem(focusTaskKey);
-    taskOptionsDiv.classList.remove('show');
+function displayFocusTask() {
+  if(localStorage.getItem(focusTaskKey)) {
     focusTaskDiv.innerHTML = `
-      <label for='focus-task'>Today's Most Important Task is:</label>
+      <div class='focus-check'>
+        <h2 id='today-focus'>TODAY</h2>
+        <div class='check-and-label'>
+          <input type='checkbox' name='task-complete' id='focus-task'/>
+          <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
+        </div>
+        <button class='options-btn' onClick='toggleOptions()'></button>
+      </div>
     `;
-    const inputField = document.createElement('input');
-    inputField.setAttribute('id', 'focus-task');
-    inputField.type = 'text';
-    inputField.name = 'focus-task';
-    inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
-    focusTaskDiv.appendChild(inputField);
   }
+}
 
-  if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+function getFocusTask(event, value) {
+  if(event.key === 'Enter' || event.keyCode === 13) {
+    localStorage.setItem('focus-task', value);
     displayFocusTask();
   }
+}
 
-  chrome.tabs.onCreated.addListener(displayFocusTask())
+function toggleOptions() {
+  taskOptionsDiv.classList.toggle('show');
+}
+
+function editTaskText() {
+  createInputField()
+}
+
+function deleteTask() {
+  localStorage.removeItem(focusTaskKey);
+  createInputField();
+}
+
+function createInputField() {
+  taskOptionsDiv.classList.remove('show');
+  focusTaskDiv.innerHTML = `
+    <label for='focus-task'>Today's Most Important Task is:</label>
+  `;
+  const inputField = document.createElement('input');
+  inputField.setAttribute('id', 'focus-task');
+  inputField.type = 'text';
+  inputField.name = 'focus-task';
+  inputField.value = localStorage.getItem(focusTaskKey);
+  inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
+  focusTaskDiv.appendChild(inputField);
+}
+
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+  displayFocusTask();
+}
+//once a focus task has been created, it'll display the task when you open a new tab
+chrome.tabs.onCreated.addListener(displayFocusTask());

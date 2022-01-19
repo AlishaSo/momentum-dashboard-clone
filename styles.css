@@ -33,6 +33,10 @@ main {
   justify-content: space-between;
 }
 
+button {
+  cursor: pointer;
+}
+
 .weather {
   align-items: center;
   display: flex;

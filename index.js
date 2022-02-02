@@ -11,6 +11,7 @@ const focusTaskInput = document.querySelector('#focus-task');
 const taskOptionsDiv = document.querySelector('.task-options');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
+const startTimerBtn = document.querySelector('#start-timer');
 
 getCurrentTime();
 resetInput();
@@ -20,6 +21,38 @@ focusTaskInput.addEventListener('keyup', e => getFocusTask(e, focusTaskInput.val
 editTaskTextBtn.addEventListener('click', editTaskText);
 
 deleteTaskBtn.addEventListener('click', deleteTask);
+
+startTimerBtn.addEventListener('click', () => {
+  let minEl = document.createElement('input');
+  let secsEl = document.createElement('input');
+  let div = document.createElement('div');
+  let pEl = document.createElement('p');
+  
+  minEl.setAttribute('type', 'number');
+  minEl.setAttribute('name', 'get-mins')
+  minEl.setAttribute('min', 1);
+  minEl.setAttribute('max', 60);
+  minEl.setAttribute('value', 25);
+
+  secsEl.setAttribute('type', 'number');
+  secsEl.setAttribute('name', 'get-secs')
+  secsEl.setAttribute('min', 1);
+  secsEl.setAttribute('max', 60);
+  secsEl.setAttribute('value', 00);
+
+  div.classList.add('pomodoro-div');
+  pEl.textContent = ':';
+
+  document.querySelector('main').appendChild(div);
+  document.querySelector('.pomodoro-div').appendChild(minEl);
+  document.querySelector('.pomodoro-div').appendChild(pEl);
+  document.querySelector('.pomodoro-div').appendChild(secsEl);
+
+  timeEl.style.display = 'none';
+  quoteP.style.display = 'none';
+  focusTaskDiv.style.display = 'none';
+  taskOptionsDiv.classList.remove('show');
+});
 
 //Access Unsplash API to get a random photo
 // fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')

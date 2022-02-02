@@ -169,6 +169,16 @@ label[for=focus-task] {
   /* width: fit-content; */
 }
 
+.pomodoro-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .photographer a {
   color: var(--text-color);
   text-decoration: none;

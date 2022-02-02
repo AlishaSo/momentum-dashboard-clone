@@ -12,6 +12,9 @@ const taskOptionsDiv = document.querySelector('.task-options');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
+let minEl = document.createElement('input');
+let secsEl = document.createElement('input');
+let startBtn = document.createElement('button');
 
 getCurrentTime();
 resetInput();
@@ -23,30 +26,31 @@ editTaskTextBtn.addEventListener('click', editTaskText);
 deleteTaskBtn.addEventListener('click', deleteTask);
 
 startTimerBtn.addEventListener('click', () => {
-  let minEl = document.createElement('input');
-  let secsEl = document.createElement('input');
   let div = document.createElement('div');
   let pEl = document.createElement('p');
   
-  minEl.setAttribute('type', 'number');
+  minEl.setAttribute('type', 'text');
   minEl.setAttribute('name', 'get-mins')
   minEl.setAttribute('min', 1);
   minEl.setAttribute('max', 60);
   minEl.setAttribute('value', 25);
 
-  secsEl.setAttribute('type', 'number');
+  secsEl.setAttribute('type', 'text');
   secsEl.setAttribute('name', 'get-secs')
   secsEl.setAttribute('min', 1);
   secsEl.setAttribute('max', 60);
-  secsEl.setAttribute('value', 00);
+  secsEl.setAttribute('value', '00');
 
   div.classList.add('pomodoro-div');
   pEl.textContent = ':';
+
+  startBtn.textContent = 'Start';
 
   document.querySelector('main').appendChild(div);
   document.querySelector('.pomodoro-div').appendChild(minEl);
   document.querySelector('.pomodoro-div').appendChild(pEl);
   document.querySelector('.pomodoro-div').appendChild(secsEl);
+  document.querySelector('.pomodoro-div').appendChild(startBtn);
 
   timeEl.style.display = 'none';
   quoteP.style.display = 'none';
@@ -132,8 +136,9 @@ function setBgImg(img, username, name) {
 
 function setQuote(quote, source) {
   quoteP.innerHTML = `"${quote}"
-  <br>
-  - ${source}`;
+    <br>
+    - ${source}
+  `;
 }
 
 function displayFocusTask() {
@@ -163,7 +168,7 @@ function toggleOptions() {
 }
 
 function editTaskText() {
-  createInputField()
+  createInputField();
 }
 
 function deleteTask() {
@@ -189,4 +194,4 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
   displayFocusTask();
 }
 //once a focus task has been created, it'll display the task when you open a new tab
-chrome.tabs.onCreated.addListener(displayFocusTask());
+// chrome.tabs.onCreated.addListener(displayFocusTask());

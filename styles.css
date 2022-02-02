@@ -133,14 +133,23 @@ label[for=focus-task] {
   text-decoration: line-through;
 }
 
+.focus-task-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
 .options-btn {
-  background: url('images/Orion_more(1).png') no-repeat center center rgba(250, 250, 250, .75);
+  /* Credit to Font Awesome for the ellipsis-h svg, which I modified the svg to make the image white rather than black. 
+   See https://fontawesome.com/license for Font Awesome Free license. No endorsements were made from FA whatsoever */
+  background: url('images/ellipsis-h-solid.svg') no-repeat center center;
   background-size: cover;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
   height: 25px;
-  width: 55px;
+  width: 40px;
 }
 
 .task-options {
@@ -175,6 +184,33 @@ label[for=focus-task] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.pomodoro-div input {
+  height: 5rem;
+  border: 0;
+  min-width: 20px;
+  max-width: 100px;
+  background-color: transparent;
+  font-size: 5rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.pomodoro-div p {
+  font-size: 5rem;
 }
 
 .photographer a {

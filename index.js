@@ -141,11 +141,11 @@ function displayFocusTask() {
     focusTaskDiv.innerHTML = `
       <div class='focus-check'>
         <h2 id='today-focus'>TODAY</h2>
-        <div class='check-and-label'>
+        <div class='focus-task-dropdown'>
           <input type='checkbox' name='task-complete' id='focus-task'/>
           <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
+          <button class='options-btn' onClick='toggleOptions()'></button>
         </div>
-        <button class='options-btn' onClick='toggleOptions()'></button>
       </div>
     `;
   }

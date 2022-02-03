@@ -12,9 +12,8 @@ const taskOptionsDiv = document.querySelector('.task-options');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
-let minEl = document.createElement('input');
-let secsEl = document.createElement('input');
 let startBtn = document.createElement('button');
+let clockInterval;
 
 getCurrentTime();
 resetInput();
@@ -27,35 +26,24 @@ deleteTaskBtn.addEventListener('click', deleteTask);
 
 startTimerBtn.addEventListener('click', () => {
   let div = document.createElement('div');
-  let pEl = document.createElement('p');
-  
-  minEl.setAttribute('type', 'text');
-  minEl.setAttribute('name', 'get-mins')
-  minEl.setAttribute('min', 1);
-  minEl.setAttribute('max', 60);
-  minEl.setAttribute('value', 25);
-
-  secsEl.setAttribute('type', 'text');
-  secsEl.setAttribute('name', 'get-secs')
-  secsEl.setAttribute('min', 1);
-  secsEl.setAttribute('max', 60);
-  secsEl.setAttribute('value', '00');
 
   div.classList.add('pomodoro-div');
-  pEl.textContent = ':';
 
   startBtn.textContent = 'Start';
+  startBtn.classList.add('btn');
+  startBtn.classList.add('start-timer-btn');
 
   document.querySelector('main').appendChild(div);
-  document.querySelector('.pomodoro-div').appendChild(minEl);
-  document.querySelector('.pomodoro-div').appendChild(pEl);
-  document.querySelector('.pomodoro-div').appendChild(secsEl);
   document.querySelector('.pomodoro-div').appendChild(startBtn);
 
-  timeEl.style.display = 'none';
+  timeEl.textContent = '25:00';
+
+  weatherDiv.style.visibility = 'hidden';
   quoteP.style.display = 'none';
   focusTaskDiv.style.display = 'none';
   taskOptionsDiv.classList.remove('show');
+  
+  clearInterval(clockInterval);
 });
 
 //Access Unsplash API to get a random photo
@@ -104,7 +92,7 @@ function getCurrentTime() {
   timeEl.textContent = now.toLocaleTimeString("en-GB", {timeStyle: "short"});
 }
 
-setInterval(getCurrentTime, 1000);
+clockInterval = setInterval(getCurrentTime, 1000);
 
 //Access the Quotable API to get a random quote that is < 70 characters long
 fetch('https://api.quotable.io/random?maxLength=100')

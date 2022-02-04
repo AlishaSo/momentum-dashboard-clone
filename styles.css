@@ -181,7 +181,7 @@ label[for=focus-task] {
   /* width: fit-content; */
 }
 
-.new-task.btn {
+#new-task.btn {
   display: none;
 }
 .pomodoro-div {

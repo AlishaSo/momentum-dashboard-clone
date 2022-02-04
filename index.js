@@ -26,14 +26,19 @@ deleteTaskBtn.addEventListener('click', deleteTask);
 
 startTimerBtn.addEventListener('click', () => {
   let div = document.createElement('div');
+  let timerLabel = document.createElement('p');
 
   div.classList.add('pomodoro-div');
+
+  timerLabel.textContent = 'Focus time!';
+  timerLabel.setAttribute('id', 'timer-label');
 
   startBtn.textContent = 'Start';
   startBtn.classList.add('btn');
   startBtn.classList.add('start-timer-btn');
 
   document.querySelector('main').appendChild(div);
+  document.querySelector('.pomodoro-div').appendChild(timerLabel);
   document.querySelector('.pomodoro-div').appendChild(startBtn);
 
   timeEl.textContent = '25:00';
@@ -45,6 +50,8 @@ startTimerBtn.addEventListener('click', () => {
   
   clearInterval(clockInterval);
 });
+
+startBtn.addEventListener('click', startTimer);
 
 //Access Unsplash API to get a random photo
 // fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')
@@ -176,6 +183,29 @@ function createInputField() {
   inputField.value = localStorage.getItem(focusTaskKey);
   inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
   focusTaskDiv.appendChild(inputField);
+}
+
+function startTimer() {
+  const countDownDate = new Date().getTime() + 25 * 60 * 1000;
+  
+  timeout = setInterval(() => {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    let minutes = addLeadingZero(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+    let seconds = addLeadingZero(Math.floor((distance % (1000 * 60)) / 1000));
+    timeEl.textContent = minutes + ':' + seconds;
+    
+    if(distance <= 0) {
+      clearInterval(timeout);
+    }
+  }, 1000);
+}
+
+function addLeadingZero(number) {
+  if(number < 10) {
+    number = "0" + number;
+  }
+    return number;
 }
 
 if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {

@@ -153,22 +153,20 @@ function displayFocusTask() {
   if(localStorage.getItem(focusTaskKey)) {
     taskCheck.setAttribute('type', 'checkbox');
     taskCheck.setAttribute('name', 'task-complete');
-    taskCheck.setAttribute('id', 'focus-task');
+    taskCheck.setAttribute('id', 'focus-task-checkbox');
 
     focusTaskDiv.innerHTML = `
       <div class='focus-check'>
         <h2 id='today-focus'>TODAY</h2>
         <div class='focus-task-dropdown'>
-      `;
-    focusTaskDiv.appendChild(taskCheck);
-    focusTaskDiv.innerHTML += `
           <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
           <button class='options-btn' onClick='toggleOptions()'></button>
         </div>
       </div>
     `;
+    document.querySelector('.focus-task-dropdown').prepend(taskCheck);
 
-    document.querySelector('#focus-task').addEventListener('change', e => {
+    document.querySelector('#focus-task-checkbox').addEventListener('change', e => {
       if(e.currentTarget.checked) {
         newTaskBtn.style.display = 'block';
         editTaskTextBtn.style.display = 'none';

@@ -88,8 +88,6 @@ button {
 }
 
 .focus-task-div {
-  /* display: flex;
-  flex-direction: column; */
   font-size: 1.6rem;
   text-align: unset;
 }
@@ -99,7 +97,6 @@ button {
 }
 
 .focus-task-div input[type=text] {
-  /* align-self: center; */
   display: block;
   margin: 0 auto;
   background-color: transparent;
@@ -120,19 +117,19 @@ button {
   margin-right: 1em;
 }
 
+#today-focus {
+  margin-bottom: 0;
+}
+
 label[for=focus-task] {
   position: relative;
 }
 
-.focus-task-div:hover + label {
-  color: red;
-}
-
-#focus-task, label[for=focus-task] {
+#focus-task-checkbox, label[for=focus-task] {
   cursor: pointer;
 }
 
-#focus-task:checked + label {
+#focus-task-checkbox:checked + label {
   text-decoration: line-through;
 }
 
@@ -160,16 +157,14 @@ label[for=focus-task] {
 .task-options {
   background-color: #252525;
   display: none;
-  left: 45%;
-  margin-top: 5px;
+  left: 53%;
+  margin-top: -10px;
   position: absolute;
-  /* visibility: hidden; */
   width: fit-content;
 }
 
 .task-options.show {
   display: block;
-  /* visibility: visible; */
 }
 
 .task-options .btn {
@@ -178,7 +173,6 @@ label[for=focus-task] {
   color: var(--text-color);
   display: block;
   font-size: 1.2rem;
-  /* width: fit-content; */
 }
 
 #new-task.btn {

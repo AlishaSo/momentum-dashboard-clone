@@ -9,7 +9,7 @@ const focusTaskDiv = document.querySelector('.focus-task-div');
 const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
 const taskOptionsDiv = document.querySelector('.task-options');
-const newTaskBtn = document.querySelector('.new-task');
+const newTaskBtn = document.querySelector('#new-task');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
@@ -22,9 +22,20 @@ resetInput();
 
 focusTaskInput.addEventListener('keyup', e => getFocusTask(e, focusTaskInput.value));
 
+newTaskBtn.addEventListener('click', () => {
+  localStorage.removeItem('focus-task');
+  createInputField();
+  newTaskBtn.style.display = 'none';
+  editTaskTextBtn.style.display = 'block';
+});
+
 editTaskTextBtn.addEventListener('click', editTaskText);
 
-deleteTaskBtn.addEventListener('click', deleteTask);
+deleteTaskBtn.addEventListener('click', () => {
+  deleteTask();
+  newTaskBtn.style.display = 'none';
+  editTaskTextBtn.style.display = 'block';
+});
 
 startTimerBtn.addEventListener('click', () => {
   let div = document.createElement('div');
@@ -200,7 +211,10 @@ function createInputField() {
   inputField.setAttribute('id', 'focus-task');
   inputField.type = 'text';
   inputField.name = 'focus-task';
-  inputField.value = localStorage.getItem(focusTaskKey);
+  if(localStorage.getItem(focusTaskKey))
+    inputField.value = localStorage.getItem(focusTaskKey);
+  else
+  inputField.value = '';
   inputField.addEventListener('keyup', e => getFocusTask(e, inputField.value));
   focusTaskDiv.appendChild(inputField);
 }

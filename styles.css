@@ -179,14 +179,17 @@ label[for=focus-task] {
 
 .pomodoro-div {
   position: absolute;
-  top: 62%;
-  left: 46%;
-  /* width: 100%;
-  height: 100%; */
+  top: 56%;
+  left: 0;
+  right: 0;
   background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+}
+
+#timer-label {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0;
 }
 
 .start-timer-btn {

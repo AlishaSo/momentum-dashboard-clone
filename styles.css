@@ -88,8 +88,8 @@ button {
 }
 
 .focus-task-div {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   font-size: 1.6rem;
   text-align: unset;
 }
@@ -99,7 +99,9 @@ button {
 }
 
 .focus-task-div input[type=text] {
-  align-self: center;
+  /* align-self: center; */
+  display: block;
+  margin: 0 auto;
   background-color: transparent;
   border: 0;
   border-bottom: 2px solid var(--input-decoration-color);
@@ -151,6 +153,8 @@ label[for=focus-task] {
   cursor: pointer;
   height: 25px;
   width: 40px;
+  padding-top: 15px;
+  margin-left: 1em;
 }
 
 .task-options {
@@ -168,7 +172,7 @@ label[for=focus-task] {
   /* visibility: visible; */
 }
 
-.task-options > button {
+.task-options .btn {
   background: transparent;
   border: 0;
   color: var(--text-color);
@@ -177,6 +181,9 @@ label[for=focus-task] {
   /* width: fit-content; */
 }
 
+.new-task.btn {
+  display: none;
+}
 .pomodoro-div {
   position: absolute;
   top: 56%;

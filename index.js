@@ -9,10 +9,12 @@ const focusTaskDiv = document.querySelector('.focus-task-div');
 const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
 const taskOptionsDiv = document.querySelector('.task-options');
+const newTaskBtn = document.querySelector('.new-task');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
-let startBtn = document.createElement('button');
+const startBtn = document.createElement('button');
+const taskCheck = document.createElement('input');
 let clockInterval;
 
 getCurrentTime();
@@ -138,18 +140,36 @@ function setQuote(quote, source) {
 
 function displayFocusTask() {
   if(localStorage.getItem(focusTaskKey)) {
+    taskCheck.setAttribute('type', 'checkbox');
+    taskCheck.setAttribute('name', 'task-complete');
+    taskCheck.setAttribute('id', 'focus-task');
+
     focusTaskDiv.innerHTML = `
       <div class='focus-check'>
         <h2 id='today-focus'>TODAY</h2>
         <div class='focus-task-dropdown'>
-          <input type='checkbox' name='task-complete' id='focus-task'/>
+      `;
+    focusTaskDiv.appendChild(taskCheck);
+    focusTaskDiv.innerHTML += `
           <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
           <button class='options-btn' onClick='toggleOptions()'></button>
         </div>
       </div>
     `;
+
+    document.querySelector('#focus-task').addEventListener('change', e => {
+      if(e.currentTarget.checked) {
+        newTaskBtn.style.display = 'block';
+        editTaskTextBtn.style.display = 'none';
+      }
+      else {
+        newTaskBtn.style.display = 'none';
+        editTaskTextBtn.style.display = 'block';
+      }
+    })
   }
 }
+
 
 function getFocusTask(event, value) {
   if(event.key === 'Enter' || event.keyCode === 13) {

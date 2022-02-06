@@ -15,6 +15,7 @@ const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
 const startBtn = document.createElement('button');
 const taskCheck = document.createElement('input');
+const goBackBtn = document.createElement('button');
 let clockInterval;
 
 getCurrentTime();
@@ -41,6 +42,10 @@ startTimerBtn.addEventListener('click', () => {
   let div = document.createElement('div');
   let timerLabel = document.createElement('p');
 
+  goBackBtn.innerHTML = '<i class="fas fa-arrow-left"></i>';
+  goBackBtn.classList.add('go-back-btn');
+  goBackBtn.classList.add('btn');
+
   div.classList.add('pomodoro-div');
 
   timerLabel.textContent = 'Focus time!';
@@ -51,6 +56,7 @@ startTimerBtn.addEventListener('click', () => {
   startBtn.classList.add('start-timer-btn');
 
   document.querySelector('main').appendChild(div);
+  document.querySelector('.pomodoro-div').appendChild(goBackBtn);
   document.querySelector('.pomodoro-div').appendChild(timerLabel);
   document.querySelector('.pomodoro-div').appendChild(startBtn);
 
@@ -160,7 +166,7 @@ function displayFocusTask() {
         <h2 id='today-focus'>TODAY</h2>
         <div class='focus-task-dropdown'>
           <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
-          <button class='options-btn' onClick='toggleOptions()'></button>
+          <button class='options-btn btn' onClick='toggleOptions()'></button>
         </div>
       </div>
     `;

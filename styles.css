@@ -140,18 +140,12 @@ label[for=focus-task] {
   gap: 1em;
 }
 
-.options-btn {
-  /* Credit to Font Awesome for the ellipsis-h svg, which I modified the svg to make the image white rather than black. 
-   See https://fontawesome.com/license for Font Awesome Free license. No endorsements were made from FA whatsoever */
-  background: url('images/ellipsis-h-solid.svg') no-repeat center center;
-  background-size: cover;
+.btn {
+  background-color: transparent;
+  color: white;
+  text-shadow: 0px 0px 3px #474747;
+  font-size: 3rem;
   border: 0;
-  border-radius: 5px;
-  cursor: pointer;
-  height: 25px;
-  width: 40px;
-  padding-top: 15px;
-  margin-left: 1em;
 }
 
 .task-options {
@@ -188,6 +182,10 @@ label[for=focus-task] {
   text-align: center;
 }
 
+.go-back-btn.btn {
+  transform: translate(-230px,-250px);
+}
+
 #timer-label {
   font-size: 3rem;
   font-weight: 800;
@@ -197,11 +195,8 @@ label[for=focus-task] {
 .start-timer-btn {
   border: 1px solid white;
   padding: .25em .5em;
-  background: transparent;
   border-radius: 5px;
   font-size: 1.25em;
-  color: white;
-  text-shadow: 0px 0px 3px #474747;
   box-shadow: 0px 0px 3px #474747;
 }
 

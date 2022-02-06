@@ -13,6 +13,7 @@ const newTaskBtn = document.querySelector('#new-task');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
+const pomodoroDiv = document.createElement('div');
 const startBtn = document.createElement('button');
 const taskCheck = document.createElement('input');
 const goBackBtn = document.createElement('button');
@@ -39,14 +40,13 @@ deleteTaskBtn.addEventListener('click', () => {
 });
 
 startTimerBtn.addEventListener('click', () => {
-  let div = document.createElement('div');
   let timerLabel = document.createElement('p');
 
   goBackBtn.innerHTML = '<i class="fas fa-arrow-left"></i>';
   goBackBtn.classList.add('go-back-btn');
   goBackBtn.classList.add('btn');
 
-  div.classList.add('pomodoro-div');
+  pomodoroDiv.classList.add('pomodoro-div');
 
   timerLabel.textContent = 'Focus time!';
   timerLabel.setAttribute('id', 'timer-label');
@@ -55,7 +55,7 @@ startTimerBtn.addEventListener('click', () => {
   startBtn.classList.add('btn');
   startBtn.classList.add('start-timer-btn');
 
-  document.querySelector('main').appendChild(div);
+  document.querySelector('main').appendChild(pomodoroDiv);
   document.querySelector('.pomodoro-div').appendChild(goBackBtn);
   document.querySelector('.pomodoro-div').appendChild(timerLabel);
   document.querySelector('.pomodoro-div').appendChild(startBtn);
@@ -71,6 +71,16 @@ startTimerBtn.addEventListener('click', () => {
 });
 
 startBtn.addEventListener('click', startTimer);
+
+goBackBtn.addEventListener('click', () => {
+  document.querySelector('main').removeChild(pomodoroDiv);
+  weatherDiv.style.visibility = 'visible';
+  quoteP.style.display = 'block';
+  focusTaskDiv.style.display = 'block';
+
+  getCurrentTime();
+  clockInterval = setInterval(getCurrentTime, 1000);
+});
 
 //Access Unsplash API to get a random photo
 // fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')

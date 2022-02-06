@@ -14,10 +14,12 @@ const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
 const startTimerBtn = document.querySelector('#start-timer');
 const pomodoroDiv = document.createElement('div');
+const timerLabel = document.createElement('p');
 const startBtn = document.createElement('button');
 const taskCheck = document.createElement('input');
 const goBackBtn = document.createElement('button');
 let clockInterval;
+let timeout;
 
 getCurrentTime();
 resetInput();
@@ -40,8 +42,6 @@ deleteTaskBtn.addEventListener('click', () => {
 });
 
 startTimerBtn.addEventListener('click', () => {
-  let timerLabel = document.createElement('p');
-
   goBackBtn.innerHTML = '<i class="fas fa-arrow-left"></i>';
   goBackBtn.classList.add('go-back-btn');
   goBackBtn.classList.add('btn');
@@ -73,6 +73,10 @@ startTimerBtn.addEventListener('click', () => {
 startBtn.addEventListener('click', startTimer);
 
 goBackBtn.addEventListener('click', () => {
+  clearInterval(timeout);
+  document.querySelector('.pomodoro-div').removeChild(goBackBtn);
+  document.querySelector('.pomodoro-div').removeChild(timerLabel);
+  document.querySelector('.pomodoro-div').removeChild(startBtn);
   document.querySelector('main').removeChild(pomodoroDiv);
   weatherDiv.style.visibility = 'visible';
   quoteP.style.display = 'block';
@@ -236,6 +240,7 @@ function createInputField() {
 }
 
 function startTimer() {
+  timeEl.textContent = '24:59';
   const countDownDate = new Date().getTime() + 25 * 60 * 1000;
   
   timeout = setInterval(() => {

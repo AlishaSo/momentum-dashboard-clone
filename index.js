@@ -166,7 +166,9 @@ function displayFocusTask() {
         <h2 id='today-focus'>TODAY</h2>
         <div class='focus-task-dropdown'>
           <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
-          <button class='options-btn btn' onClick='toggleOptions()'></button>
+          <button class='options-btn btn' onClick='toggleOptions()'>
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
         </div>
       </div>
     `;

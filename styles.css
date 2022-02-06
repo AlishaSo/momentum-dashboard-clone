@@ -178,6 +178,7 @@ label[for=focus-task] {
 #new-task.btn {
   display: none;
 }
+
 .pomodoro-div {
   position: absolute;
   top: 56%;
@@ -200,8 +201,8 @@ label[for=focus-task] {
   border-radius: 5px;
   font-size: 1.25em;
   color: white;
-  text-shadow: 2px 2px 2px black;
-  box-shadow: 2px 2px 2px black;
+  text-shadow: 0px 0px 3px #474747;
+  box-shadow: 0px 0px 3px #474747;
 }
 
 .photographer a {

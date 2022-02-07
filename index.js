@@ -1,3 +1,5 @@
+import { UNSPLASH_API_KEY, OPEN_WEATHER_API_KEY } from './apikey.js';
+
 const body = document.body;
 const photographerP = document.querySelector('.photographer');
 const weatherDiv = document.querySelector('.weather');
@@ -87,45 +89,44 @@ goBackBtn.addEventListener('click', () => {
 });
 
 //Access Unsplash API to get a random photo
-// fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=experimental')
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log(data)
-//     if(!data.errors) {
-//     setBgImg(data.urls.full, data.user.username, data.user.name);
-//     }
-//     else {
-//       throw Error('There\'s been an error with the fetch request to the Unsplash API');
-//     }
-//   })
-//   .catch(() => {
-//     alert('A new image could not be retrieved at this time');
-//     setBgImg(placeholderImgUrl, placeholderImgPhotographerProfile, placeholderImgPhotographer);
-//   });
+fetch(`https://api.unsplash.com/photos/random?orientation=landscape&query=experimental&client_id=${UNSPLASH_API_KEY}`)
+  .then(response => response.json())
+  .then(data => {
+    if(!data.errors) {
+    setBgImg(data.urls.full, data.user.username, data.user.name);
+    }
+    else {
+      throw Error('There\'s been an error with the fetch request to the Unsplash API');
+    }
+  })
+  .catch(() => {
+    alert('A new image could not be retrieved at this time');
+    setBgImg(placeholderImgUrl, placeholderImgPhotographerProfile, placeholderImgPhotographer);
+  });
 
 //Access Geolocation API to get user's coordinates
-// navigator.geolocation.getCurrentPosition(position => {
-//   //Access OpenWeather API to get the weather information
-//   fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
-//     .then(response => {
-//       if (!response.ok) { //Check if fetch response is successful
-//         throw Error("Weather data not available")
-//       }
-//       return response.json();
-//     })
-//     .then(data => {
-//       console.log(data)
-//       //Save the link to the icon image to a variable
-//       const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-//       //Add the icon for the current weather to the weather div
-//       weatherDiv.innerHTML = `
-//         <img id='weather-icon' src='${iconUrl}'/>
-//         <p class='weather-temp'>${Math.round(data.main.temp)}°</p>
-//         <p class='weather-city'>${data.name}</p>
-//       `;
-//     })
-//     .catch(error => console.error(error));
-// });
+navigator.geolocation.getCurrentPosition(position => {
+  //Access OpenWeather API to get the weather information
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial&appid=${OPEN_WEATHER_API_KEY}`)
+    .then(response => {
+      if (!response.ok) { //Check if fetch response is successful
+        throw Error("Weather data not available")
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data)
+      //Save the link to the icon image to a variable
+      const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      //Add the icon for the current weather to the weather div
+      weatherDiv.innerHTML = `
+        <img id='weather-icon' src='${iconUrl}'/>
+        <p class='weather-temp'>${Math.round(data.main.temp)}°</p>
+        <p class='weather-city'>${data.name}</p>
+      `;
+    })
+    .catch(error => console.error(error));
+});
 
 function getCurrentTime() {
   const now = new Date();
@@ -158,8 +159,8 @@ function resetInput() {
 }
 
 function setBgImg(img, username, name) {
-  //body.style.backgroundImage = `url(${img})`; //set the background to the image
-  //photographerP.innerHTML = `By: <a href='https://unsplash.com/@${username}' target='_blank'>${name}</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral' target='_blank'>Unsplash</a>`;
+  body.style.backgroundImage = `url(${img})`; //set the background to the image
+  photographerP.innerHTML = `By: <a href='https://unsplash.com/@${username}' target='_blank'>${name}</a> on <a href='https://unsplash.com/?utm_source=your_app_name&utm_medium=referral' target='_blank'>Unsplash</a>`;
 }
 
 function setQuote(quote, source) {

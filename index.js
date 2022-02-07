@@ -11,6 +11,7 @@ const focusTaskDiv = document.querySelector('.focus-task-div');
 const focusTaskKey = 'focus-task';
 const focusTaskInput = document.querySelector('#focus-task');
 const taskOptionsDiv = document.querySelector('.task-options');
+const optionsBtn = document.createElement('button');
 const newTaskBtn = document.querySelector('#new-task');
 const editTaskTextBtn = document.querySelector('#edit-task');
 const deleteTaskBtn = document.querySelector('#delete-task');
@@ -115,7 +116,6 @@ navigator.geolocation.getCurrentPosition(position => {
       return response.json();
     })
     .then(data => {
-      console.log(data)
       //Save the link to the icon image to a variable
       const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
       //Add the icon for the current weather to the weather div
@@ -172,6 +172,10 @@ function setQuote(quote, source) {
 
 function displayFocusTask() {
   if(localStorage.getItem(focusTaskKey)) {
+    optionsBtn.classList.add('options-btn');
+    optionsBtn.classList.add('btn');
+    optionsBtn.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
+
     taskCheck.setAttribute('type', 'checkbox');
     taskCheck.setAttribute('name', 'task-complete');
     taskCheck.setAttribute('id', 'focus-task-checkbox');
@@ -181,13 +185,11 @@ function displayFocusTask() {
         <h2 id='today-focus'>TODAY</h2>
         <div class='focus-task-dropdown'>
           <label for='focus-task'>${localStorage.getItem(focusTaskKey)}</label>
-          <button class='options-btn btn' onClick='toggleOptions()'>
-            <i class="fas fa-ellipsis-h"></i>
-          </button>
         </div>
       </div>
     `;
     document.querySelector('.focus-task-dropdown').prepend(taskCheck);
+    document.querySelector('.focus-task-dropdown').appendChild(optionsBtn);
 
     document.querySelector('#focus-task-checkbox').addEventListener('change', e => {
       if(e.currentTarget.checked) {
@@ -198,7 +200,9 @@ function displayFocusTask() {
         newTaskBtn.style.display = 'none';
         editTaskTextBtn.style.display = 'block';
       }
-    })
+    });
+
+    optionsBtn.addEventListener('click', toggleOptions);
   }
 }
 
